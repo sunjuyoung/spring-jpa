@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @ToString(exclude = "team")
+@NamedEntityGraph(name = "Member.all", attributeNodes = @NamedAttributeNode("team"))
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

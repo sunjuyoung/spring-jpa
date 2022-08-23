@@ -201,6 +201,44 @@ class MemberRepositoryTest {
         System.out.println(test23.getAge());//27
     }
 
+    @Test
+    public void findMemberLazy() {
+
+        List<Member> members = memberRepository.findAll();
+
+        for (Member member : members) {
+            System.out.println(member.getEmail());
+            // System.out.println(member.getTeam().getName());
+            System.out.println(member.getTeam().getClass());
+        }
+
+    }
+        @Test
+        public void findMemberFetch(){
+            List<Member> members = memberRepository.findMemberFetchJoin();
+
+            for (Member member : members) {
+                System.out.println(member.getEmail());
+                 System.out.println(member.getTeam().getName());
+                System.out.println(member.getTeam().getClass());
+            }
+
+        }
+
+    @Test
+    public void findMemberEntityGraph(){
+        //List<Member> members = memberRepository.findEntityGraphByAge(15);
+        List<Member> members = memberRepository.findNamedGraph();
+
+        for (Member member : members) {
+            System.out.println(member.getEmail());
+            System.out.println(member.getTeam().getName());
+            System.out.println(member.getTeam().getClass());
+        }
+
+    }
+
+
 
 
 }
