@@ -23,6 +23,7 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     @Query("select m.username from Member m")
     List<String> findUsername();
 
+    Member findByUsername(String username);
 
     //DTO 조회하기
     @Query("select new com.example.datajpa.dto.MemberDto(m.id,m.username,t.name)  from Member m join m.team t ")
@@ -45,7 +46,7 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     Page<Member> findCount(Pageable pageable);
 
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("update Member m set m.age = m.age + 1 where m.age >= :age")
     int bulkAgePlus(@Param("age") int age);
 

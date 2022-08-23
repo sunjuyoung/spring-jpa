@@ -27,11 +27,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberRepositoryTest {
 
 
+    //같은 트랜잭션 안에서는 같은 entitymanager
     @Autowired
     MemberRepository memberRepository;
 
     @Autowired
     TeamRepository teamRepository;
+
+    @Autowired
+    EntityManager em;
 
     @Test
     public void test(){
@@ -174,8 +178,27 @@ class MemberRepositoryTest {
     @Test
     public void testUpdate() {
         int resultCount = memberRepository.bulkAgePlus(20);
-
         System.out.println(resultCount);
+    }
+
+    @Test
+    public void testUpdate2() {
+        Member m1 = new Member("sun", "test99@email.com", 21, null);
+        memberRepository.save(m1);
+
+        int resultCount = memberRepository.bulkAgePlus(20);
+        //em.flush();  =  clearAutomatically = true
+       // em.clear();
+
+        Member member = memberRepository.findByUsername("sun");
+        Member test23 = memberRepository.findByUsername("test23");
+
+        //bulk연산은 영속성컨텍스트 무시하고 바로 db에 반영
+        //bulk연산 이후 남아있는 영속성컨텍스 날려버려야한다
+        //
+
+        System.out.println(member.getAge());//22
+        System.out.println(test23.getAge());//27
     }
 
 
