@@ -35,6 +35,10 @@ public class Member {
 
     }
 
+    public void changeUserName(String username){
+        this.username = username;
+    }
+
     public Member(String username, String email) {
         this.username = username;
         this.email = email;

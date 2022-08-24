@@ -5,16 +5,14 @@ import com.example.datajpa.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
+import javax.persistence.QueryHint;
 import java.util.Collection;
 import java.util.List;
 
-public interface MemberRepository extends JpaRepository<Member,Long> {
+public interface MemberRepository extends JpaRepository<Member,Long> ,MemberRepositoryCustom{
 
     List<Member> findByAgeGreaterThan(int age);
 
@@ -65,7 +63,12 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     @EntityGraph("Member.all")
     @Query("select m from Member m")
     List<Member> findNamedGraph();
-    
+
+
+    @QueryHints(value= @QueryHint(name ="org.hibernate.readOnly",value="true"))
+    Member findReadOnlyByUsername(String username);
+
+
 
 
 }

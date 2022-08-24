@@ -238,6 +238,24 @@ class MemberRepositoryTest {
 
     }
 
+    @Test
+    public void queryHint(){
+       // Member memberHint = memberRepository.findReadOnlyByUsername("test21");
+        Member member = memberRepository.findByUsername("test21");
+
+      //  System.out.println(memberHint);
+        System.out.println(member);
+
+       // memberHint.changeUserName("test22222222");
+        member.changeUserName("test11111111");
+
+        em.flush();
+    }
+
+    @Test
+    public void customRepo(){
+        List<Member> memberCustom = memberRepository.findMemberCustom();
+    }
 
 
 
