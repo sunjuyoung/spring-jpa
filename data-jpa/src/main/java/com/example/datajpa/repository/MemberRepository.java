@@ -53,9 +53,9 @@ public interface MemberRepository extends JpaRepository<Member,Long> ,MemberRepo
     @Query("select m from Member m left join fetch m.team t")
     List<Member> findMemberFetchJoin();
 
-    @Override
+/*    @Override
     @EntityGraph(attributePaths = {"team"})  // == fetch join와 같다 jpql ,쿼리메서드 에서도 사용가능
-    List<Member> findAll();
+    List<Member> findAll();*/
 
     @EntityGraph(attributePaths = {"team"})
     List<Member> findEntityGraphByAge(int age);

@@ -113,8 +113,8 @@ class MemberRepositoryTest {
     @Test
     @Rollback(value = false)
     public void test2() {
-        Team team = teamRepository.findById(4L).orElseThrow();
-        Team teamB = teamRepository.findById(5L).orElseThrow();
+        Team team = teamRepository.findById(1L).orElseThrow();
+        Team teamB = teamRepository.findById(2L).orElseThrow();
         for(int i=3; i<20; i++){
             String email = "test"+i+"@email.com";
             String name = "test"+i;
@@ -255,6 +255,15 @@ class MemberRepositoryTest {
     @Test
     public void customRepo(){
         List<Member> memberCustom = memberRepository.findMemberCustom();
+        List<Member> all = memberRepository.findAll();
+    }
+
+    @Test
+    @Rollback(value = false)
+    public void auditTest(){
+        Member member = new Member("sun1","test");
+        memberRepository.save(member);
+
     }
 
 
